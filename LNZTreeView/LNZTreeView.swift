@@ -200,7 +200,7 @@ public class LNZTreeView: UIView {
     
     private func indexPathForNode(withIdentifier identifier: String, inSection section: Int) -> IndexPath? {
         guard let nodes = nodesForSection[section],
-            let nodeIndex = nodes.index(where: { $0.identifier == identifier }) else {
+            let nodeIndex = nodes.firstIndex(where: { $0.identifier == identifier }) else {
                 return nil
         }
         return IndexPath(row: nodeIndex, section: section)
@@ -428,7 +428,7 @@ extension LNZTreeView: UITableViewDataSource {
         
         let node = nodes[indexPath.row]
         guard let index = nodes.filter({ node.parent?.identifier == $0.parent?.identifier })
-            .index(where: { node.identifier == $0.identifier }) else { return nil }
+            .firstIndex(where: { node.identifier == $0.identifier }) else { return nil }
         return IndexPath(row: index, section: indexPath.section)
     }
 }
